@@ -3,10 +3,6 @@ void main()
     int n,i=2,status=0;
     printf("Enter number: ");
     scanf("%d",&n);
-    if(n<=1)
-    {
-	    status=1;
-    }
     while(i<n)
 	{
         if(n%i==0)
