@@ -1,0 +1,23 @@
+int marks();
+float percentage();
+void main()
+{
+	int m;
+    m= marks();
+    float p;
+    p = percentage();
+    printf("Total marks is %d out of 500\n",m);
+	printf("Percentage of 5 Subjects %f",p);
+}
+int marks()
+{
+	int s1=80 ,s2=75 ,s3=90 ,s4=85 ,s5=70 ,total;
+	total=s1+s2+s3+s4+s5;
+	return total;
+}
+float percentage()
+{
+    int s1=80 ,s2=75 ,s3=90 ,s4=85 ,s5=70 ,total;
+    total=s1+s2+s3+s4+s5;
+    return (total / 500.0) * 100;
+}
