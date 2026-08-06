@@ -1,6 +1,5 @@
 //Armstrong
 void armstrong(int);
-void armstrong(int);
 void main()
 {
 	int no;
