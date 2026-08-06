@@ -1,8 +1,14 @@
+void perfect(int);
 void main() 
 {
-    int n,i=1,sum=0;
+    int n;
     printf("Enter number: ");
     scanf("%d",&n);
+	perfect(n);
+}
+void perfect(int n)
+{
+	int i=1,sum=0;
     while(i<n) 
 	{
         if(n%i==0)
