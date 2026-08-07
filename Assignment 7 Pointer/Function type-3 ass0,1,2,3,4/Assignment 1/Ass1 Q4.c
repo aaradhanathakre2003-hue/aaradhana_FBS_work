@@ -1,0 +1,13 @@
+void character(char *);
+void main()
+{
+	char ch='k';
+	character(&ch);
+}
+void character(char *ch)
+{
+	if((*ch)=='a'|| (*ch)=='e' || (*ch)=='i' || (*ch)=='o' || (*ch)=='u')
+		printf("vowel");
+	else
+		printf("Consonant");
+}
