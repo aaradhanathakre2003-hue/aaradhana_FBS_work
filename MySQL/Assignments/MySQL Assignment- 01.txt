@@ -64,5 +64,5 @@ mysql> create table employees(
     -> commission decimal(10,2),
     -> manager_id int,
     -> department_id int,
-    -> foreign key(department_id)
-    -> references departments(department_id));
+    -> foreign key(department_id, manager_id)
+    -> references departments(department_id ,manager_id));
