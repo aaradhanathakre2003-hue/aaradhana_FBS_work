@@ -1,0 +1,248 @@
+MySQL Assignment- 03
+
+Q1)
+mysql> insert into employees
+    -> (employee_id, first_name, last_name, job_id, salary, manager_id, department_id)
+    -> values
+    -> (100,"Steven","King",1,24000,200,10),
+    -> (101,"Neena","Kochhar",2,17000,200,10),
+    -> (102,"Lex","De Haan",2,17000,200,10),
+    -> (103,"Alexander","Hunold",3,9000,103,60),
+    -> (104,"Bruce","Ernst",3,6000,103,60),
+    -> (105,"David","Austin",3,4800,103,60),
+    -> (106,"Valli","Pataballa",3,4800,103,60),
+    -> (107,"Diana","Lorentz",3,4200,114,30),
+    -> (108,"Nancy","Greenberg",4,12000,145,80),
+    -> (109,"Daniel","Faviet",4,9000,145,80);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`assignment`.`employees`, CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`department_id`, `manager_id`) REFERENCES `departments` (`department_id`, `manager_id`))
+
+After entering the departments data then only we put the values in employees table because manager_id and department_id is foreign key reference of departments table.
+
+mysql> insert into employees
+    -> (employee_id, first_name, last_name, job_id, salary, manager_id, department_id)
+    -> values
+    -> (100,"Steven","King",1,24000,200,10),
+    -> (101,"Neena","Kochhar",2,17000,200,10),
+    -> (102,"Lex","De Haan",2,17000,200,10),
+    -> (103,"Alexander","Hunold",3,9000,103,60),
+    -> (104,"Bruce","Ernst",3,6000,103,60),
+    -> (105,"David","Austin",3,4800,103,60),
+    -> (106,"Valli","Pataballa",3,4800,103,60),
+    -> (107,"Diana","Lorentz",3,4200,114,30),
+    -> (108,"Nancy","Greenberg",4,12000,145,80),
+    -> (109,"Daniel","Faviet",4,9000,145,80);
+mysql> table employees;
++-------------+------------+-----------+--------+----------+------------+---------------+
+| employee_id | first_name | last_name | job_id | salary   | manager_id | department_id |
++-------------+------------+-----------+--------+----------+------------+---------------+
+|         100 | Steven     | King      |      1 | 24000.00 |        200 |            10 |
+|         101 | Neena      | Kochhar   |      2 | 17000.00 |        200 |            10 |
+|         102 | Lex        | De Haan   |      2 | 17000.00 |        200 |            10 |
+|         103 | Alexander  | Hunold    |      3 |  9000.00 |        103 |            60 |
+|         104 | Bruce      | Ernst     |      3 |  6000.00 |        103 |            60 |
+|         105 | David      | Austin    |      3 |  4800.00 |        103 |            60 |
+|         106 | Valli      | Pataballa |      3 |  4800.00 |        103 |            60 |
+|         107 | Diana      | Lorentz   |      3 |  4200.00 |        114 |            30 |
+|         108 | Nancy      | Greenberg |      4 | 12000.00 |        145 |            80 |
+|         109 | Daniel     | Faviet    |      4 |  9000.00 |        145 |            80 |
++-------------+------------+-----------+--------+----------+------------+---------------+
+
+
+Q2)
+mysql> insert into departments values
+    -> (10,"Administration",200,1700),
+    -> (20,"Marketing",201,1800),
+    -> (30,"Purchasing",114,1700),
+    -> (60,"IT",103,1400),
+    -> (80,"Sales",145,2500);
+mysql> table departments;
++---------------+-----------------+------------+-------------+
+| department_id | department_name | manager_id | location_id |
++---------------+-----------------+------------+-------------+
+|            10 | Administration  |        200 |        1700 |
+|            20 | Marketing       |        201 |        1800 |
+|            30 | Purchasing      |        114 |        1700 |
+|            60 | IT              |        103 |        1400 |
+|            80 | Sales           |        145 |        2500 |
++---------------+-----------------+------------+-------------+
+
+Q3)
+mysql> insert into jobs values
+    -> (5,"IT Manager",16000,25000);
+
+Q4)
+mysql> update employees
+    -> set salary=salary*1.10;
+mysql> table employees;
++-------------+------------+-----------+--------+----------+------------+---------------+
+| employee_id | first_name | last_name | job_id | salary   | manager_id | department_id |
++-------------+------------+-----------+--------+----------+------------+---------------+
+|         100 | Steven     | King      |      1 | 26400.00 |        200 |            10 |
+|         101 | Neena      | Kochhar   |      2 | 18700.00 |        200 |            10 |
+|         102 | Lex        | De Haan   |      2 | 18700.00 |        200 |            10 |
+|         103 | Alexander  | Hunold    |      3 |  9900.00 |        103 |            60 |
+|         104 | Bruce      | Ernst     |      3 |  6600.00 |        103 |            60 |
+|         105 | David      | Austin    |      3 |  5280.00 |        103 |            60 |
+|         106 | Valli      | Pataballa |      3 |  5280.00 |        103 |            60 |
+|         107 | Diana      | Lorentz   |      3 |  4620.00 |        114 |            30 |
+|         108 | Nancy      | Greenberg |      4 | 13200.00 |        145 |            80 |
+|         109 | Daniel     | Faviet    |      4 |  9900.00 |        145 |            80 |
++-------------+------------+-----------+--------+----------+------------+---------------+
+
+Q5)
+mysql> alter table employees
+    -> add email varchar(50);
+mysql> alter table employees
+    -> add commission_pct decimal(4,2);
+
+mysql> update employees 
+    -> set email='john@gmail.com',commission_pct=0.10 where employee_id=101;
+mysql> update employees 
+    -> set email='david@gmail.com',commission_pct=0.15 where employee_id=102;
+mysql> update employees 
+    -> set email='alice@gmail.com',commission_pct=0.25 where employee_id=103;
+mysql> update employees 
+    -> set email='rohan@gmail.com',commission_pct=0.12 where employee_id=104;
+mysql> update employees 
+    -> set email='priya@gmail.com',commission_pct=0.18 where employee_id=105;
+mysql> update employees 
+    -> set email='amit@gmail.com',commission_pct=0.20 where employee_id=106;
+mysql> update employees 
+    -> set email='neha@gmail.com',commission_pct=0.08 where employee_id=107;
+mysql> update employees 
+    -> set email='rahul@gmail.com',commission_pct=0.30 where employee_id=108;
+mysql> update employees 
+    -> set email='sneha@gmail.com',commission_pct=0.10 where employee_id=109;
+mysql> update employees 
+    -> set email='pooja@gmail.com',commission_pct=0.22 where employee_id=110;
+
+mysql> update employees
+    -> set email='not available'
+    -> where department_id=80 and commission_pct<0.20;
+mysql> table employees;
++-------------+------------+-----------+--------+----------+------------+---------------+-----------------+----------------+
+| employee_id | first_name | last_name | job_id | salary   | manager_id | department_id | email           | commission_pct |
++-------------+------------+-----------+--------+----------+------------+---------------+-----------------+----------------+
+|         100 | Steven     | King      |      1 | 26400.00 |        200 |            10 | NULL            |           NULL |
+|         101 | Neena      | Kochhar   |      2 | 18700.00 |        200 |            10 | john@gmail.com  |           0.10 |
+|         102 | Lex        | De Haan   |      2 | 18700.00 |        200 |            10 | david@gmail.com |           0.15 |
+|         103 | Alexander  | Hunold    |      3 |  9900.00 |        103 |            60 | alice@gmail.com |           0.25 |
+|         104 | Bruce      | Ernst     |      3 |  6600.00 |        103 |            60 | rohan@gmail.com |           0.12 |
+|         105 | David      | Austin    |      3 |  5280.00 |        103 |            60 | priya@gmail.com |           0.18 |
+|         106 | Valli      | Pataballa |      3 |  5280.00 |        103 |            60 | amit@gmail.com  |           0.20 |
+|         107 | Diana      | Lorentz   |      3 |  4620.00 |        114 |            30 | neha@gmail.com  |           0.08 |
+|         108 | Nancy      | Greenberg |      4 | 13200.00 |        145 |            80 | rahul@gmail.com |           0.30 |
+|         109 | Daniel     | Faviet    |      4 |  9900.00 |        145 |            80 | not available   |           0.10 |
++-------------+------------+-----------+--------+----------+------------+---------------+-----------------+----------------+
+
+Q6)
+mysql> update employees
+    -> set email='not available'
+    -> where department_id in (select department_id from departments where department_name='Purchasing');
+mysql> table employees;
++-------------+------------+-----------+--------+----------+------------+---------------+-----------------+----------------+
+| employee_id | first_name | last_name | job_id | salary   | manager_id | department_id | email           | commission_pct |
++-------------+------------+-----------+--------+----------+------------+---------------+-----------------+----------------+
+|         100 | Steven     | King      |      1 | 26400.00 |        200 |            10 | NULL            |           NULL |
+|         101 | Neena      | Kochhar   |      2 | 18700.00 |        200 |            10 | john@gmail.com  |           0.10 |
+|         102 | Lex        | De Haan   |      2 | 18700.00 |        200 |            10 | david@gmail.com |           0.15 |
+|         103 | Alexander  | Hunold    |      3 |  9900.00 |        103 |            60 | alice@gmail.com |           0.25 |
+|         104 | Bruce      | Ernst     |      3 |  6600.00 |        103 |            60 | rohan@gmail.com |           0.12 |
+|         105 | David      | Austin    |      3 |  5280.00 |        103 |            60 | priya@gmail.com |           0.18 |
+|         106 | Valli      | Pataballa |      3 |  5280.00 |        103 |            60 | amit@gmail.com  |           0.20 |
+|         107 | Diana      | Lorentz   |      3 |  4620.00 |        114 |            30 | not available   |           0.08 |
+|         108 | Nancy      | Greenberg |      4 | 13200.00 |        145 |            80 | rahul@gmail.com |           0.30 |
+|         109 | Daniel     | Faviet    |      4 |  9900.00 |        145 |            80 | not available   |           0.10 |
++-------------+------------+-----------+--------+----------+------------+---------------+-----------------+----------------+
+
+Q7)
+mysql> update employees
+    -> set email='not available',commission_pct=0.10;
+mysql> table employees;
++-------------+------------+-----------+--------+----------+------------+---------------+---------------+----------------+
+| employee_id | first_name | last_name | job_id | salary   | manager_id | department_id | email         | commission_pct |
++-------------+------------+-----------+--------+----------+------------+---------------+---------------+----------------+
+|         100 | Steven     | King      |      1 | 26400.00 |        200 |            10 | not available |           0.10 |
+|         101 | Neena      | Kochhar   |      2 | 18700.00 |        200 |            10 | not available |           0.10 |
+|         102 | Lex        | De Haan   |      2 | 18700.00 |        200 |            10 | not available |           0.10 |
+|         103 | Alexander  | Hunold    |      3 |  9900.00 |        103 |            60 | not available |           0.10 |
+|         104 | Bruce      | Ernst     |      3 |  6600.00 |        103 |            60 | not available |           0.10 |
+|         105 | David      | Austin    |      3 |  5280.00 |        103 |            60 | not available |           0.10 |
+|         106 | Valli      | Pataballa |      3 |  5280.00 |        103 |            60 | not available |           0.10 |
+|         107 | Diana      | Lorentz   |      3 |  4620.00 |        114 |            30 | not available |           0.10 |
+|         108 | Nancy      | Greenberg |      4 | 13200.00 |        145 |            80 | not available |           0.10 |
+|         109 | Daniel     | Faviet    |      4 |  9900.00 |        145 |            80 | not available |           0.10 |
++-------------+------------+-----------+--------+----------+------------+---------------+---------------+----------------+
+
+Q8)
+mysql> update employees
+    -> set salary=salary+2000
+    -> where department_id=60;
+mysql> table employees;
++-------------+------------+-----------+--------+----------+------------+---------------+---------------+----------------+
+| employee_id | first_name | last_name | job_id | salary   | manager_id | department_id | email         | commission_pct |
++-------------+------------+-----------+--------+----------+------------+---------------+---------------+----------------+
+|         100 | Steven     | King      |      1 | 26400.00 |        200 |            10 | not available |           0.10 |
+|         101 | Neena      | Kochhar   |      2 | 18700.00 |        200 |            10 | not available |           0.10 |
+|         102 | Lex        | De Haan   |      2 | 18700.00 |        200 |            10 | not available |           0.10 |
+|         103 | Alexander  | Hunold    |      3 | 11900.00 |        103 |            60 | not available |           0.10 |
+|         104 | Bruce      | Ernst     |      3 |  8600.00 |        103 |            60 | not available |           0.10 |
+|         105 | David      | Austin    |      3 |  7280.00 |        103 |            60 | not available |           0.10 |
+|         106 | Valli      | Pataballa |      3 |  7280.00 |        103 |            60 | not available |           0.10 |
+|         107 | Diana      | Lorentz   |      3 |  4620.00 |        114 |            30 | not available |           0.10 |
+|         108 | Nancy      | Greenberg |      4 | 13200.00 |        145 |            80 | not available |           0.10 |
+|         109 | Daniel     | Faviet    |      4 |  9900.00 |        145 |            80 | not available |           0.10 |
++-------------+------------+-----------+--------+----------+------------+---------------+---------------+----------------+
+
+Q9)
+mysql> delete from employees
+    -> where salary<5000;
+mysql> table employees;
++-------------+------------+-----------+--------+----------+------------+---------------+---------------+----------------+
+| employee_id | first_name | last_name | job_id | salary   | manager_id | department_id | email         | commission_pct |
++-------------+------------+-----------+--------+----------+------------+---------------+---------------+----------------+
+|         100 | Steven     | King      |      1 | 26400.00 |        200 |            10 | not available |           0.10 |
+|         101 | Neena      | Kochhar   |      2 | 18700.00 |        200 |            10 | not available |           0.10 |
+|         102 | Lex        | De Haan   |      2 | 18700.00 |        200 |            10 | not available |           0.10 |
+|         103 | Alexander  | Hunold    |      3 | 11900.00 |        103 |            60 | not available |           0.10 |
+|         104 | Bruce      | Ernst     |      3 |  8600.00 |        103 |            60 | not available |           0.10 |
+|         105 | David      | Austin    |      3 |  7280.00 |        103 |            60 | not available |           0.10 |
+|         106 | Valli      | Pataballa |      3 |  7280.00 |        103 |            60 | not available |           0.10 |
+|         108 | Nancy      | Greenberg |      4 | 13200.00 |        145 |            80 | not available |           0.10 |
+|         109 | Daniel     | Faviet    |      4 |  9900.00 |        145 |            80 | not available |           0.10 |
++-------------+------------+-----------+--------+----------+------------+---------------+---------------+----------------+
+
+Q10)
+mysql> insert into employees values
+    -> (110,'Neha','Patil',4,54800,201,20,'neha@gmail.com',0.20);
+mysql> table employees;
++-------------+------------+-----------+--------+----------+------------+---------------+----------------+----------------+
+| employee_id | first_name | last_name | job_id | salary   | manager_id | department_id | email          | commission_pct |
++-------------+------------+-----------+--------+----------+------------+---------------+----------------+----------------+
+|         100 | Steven     | King      |      1 | 26400.00 |        200 |            10 | not available  |           0.10 |
+|         101 | Neena      | Kochhar   |      2 | 18700.00 |        200 |            10 | not available  |           0.10 |
+|         102 | Lex        | De Haan   |      2 | 18700.00 |        200 |            10 | not available  |           0.10 |
+|         103 | Alexander  | Hunold    |      3 | 11900.00 |        103 |            60 | not available  |           0.10 |
+|         104 | Bruce      | Ernst     |      3 |  8600.00 |        103 |            60 | not available  |           0.10 |
+|         105 | David      | Austin    |      3 |  7280.00 |        103 |            60 | not available  |           0.10 |
+|         106 | Valli      | Pataballa |      3 |  7280.00 |        103 |            60 | not available  |           0.10 |
+|         108 | Nancy      | Greenberg |      4 | 13200.00 |        145 |            80 | not available  |           0.10 |
+|         109 | Daniel     | Faviet    |      4 |  9900.00 |        145 |            80 | not available  |           0.10 |
+|         110 | Neha       | Patil     |      4 | 54800.00 |        201 |            20 | neha@gmail.com |           0.20 |
++-------------+------------+-----------+--------+----------+------------+---------------+----------------+----------------+
+
+Q11)
+mysql> update employees
+    -> set manager_id=300
+    -> where department_id=80;
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`assignment`.`employees`, CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`department_id`, `manager_id`) REFERENCES `departments` (`department_id`, `manager_id`))
+
+mysql> update departments
+    -> set manager_id=300
+    -> where department_id=80;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`assignment`.`employees`, CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`department_id`, `manager_id`) REFERENCES `departments` (`department_id`, `manager_id`))
+
+Q12)
+mysql> delete from departments
+    -> where department_id=20;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`assignment`.`employees`, CONSTRAINT `employees_ibfk_1` FOREIGN KEY (`department_id`, `manager_id`) REFERENCES `departments` (`department_id`, `manager_id`))
