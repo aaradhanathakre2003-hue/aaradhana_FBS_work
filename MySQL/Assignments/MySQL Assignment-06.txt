@@ -1,0 +1,53 @@
+MySQL Assignment-06
+
+Q1)
+mysql> create view Book_List as
+    -> select book_no,book_name,author_name,cost,category
+    -> from books;
+
+Q2)
+mysql> select * from Book_List;
+
+Q3)
+mysql> create view Issued_Books as
+    -> select lib_issue_id,book_no,member_id,issue_date
+    -> from issue
+    -> where return_date is null;
+
+Q4)
+mysql> select * from Issued_Books;
+
+Q5)
+mysql> create view Member_Penalty as
+    -> select member_id,member_name,penalty_amount
+    -> from member
+    -> where penalty_amount>0;
+
+Q6)
+mysql> select * from Member_Penalty;
+
+Q7)
+mysql> update Member_Penalty
+    -> set penalty_amount=300
+    -> where member_id=102;
+
+Q8)
+mysql> create view Book_Issue_Details as
+    -> select books.book_name,member.member_name,issue.issue_date,issue.return_date
+    -> from books join issue
+    -> on books.book_no=issue.book_no
+    -> join member
+    -> on issue.member_id=member.member_id;
+
+Q9)
+mysql> select book_name,member_name,issue_date 
+    -> from Book_Issue_Details;
+
+Q10)
+mysql> drop view Issued_Books;
+
+Q11)
+mysql> drop view Member_Penalty;
+
+Q12)
+mysql> drop view Book_Issue_Details;

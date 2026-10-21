@@ -1,0 +1,158 @@
+MySQL Assignment-07
+
+mysql> set autocommit=0;
+
+Q1)
+mysql> start transaction;
+
+mysql> insert into member
+    -> values (111,'Rahul Patil','Pune','2026-10-21','Annual', 1000.00, 3, 0.00);
+
+mysql> commit;
+
+mysql> table member;
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| member_id | member_name | member_address | acc_open_date | membership_type | fees_paid | max_books_allowed | penalty_amount |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|       111 | Rahul Patil | Pune           | 2026-10-21    | Annual          |   1000.00 |                 3 |           0.00 |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+
+
+Q2)
+mysql> start transaction;
+
+mysql> insert into books
+    -> values(501, 'Java Programming', 'James Gosling', 500.00, 'Programming');
+
+mysql> table books;
++---------+------------------+---------------+--------+-------------+
+| book_no | book_name        | author_name   | cost   | category    |
++---------+------------------+---------------+--------+-------------+
+|     501 | Java Programming | James Gosling | 500.00 | Programming |
++---------+------------------+---------------+--------+-------------+
+
+mysql> rollback;
+
+mysql> table books;
+Empty set (0.00 sec)
+
+
+Q3)
+mysql> start transaction;
+
+mysql> savepoint sp1;
+
+mysql> update member
+    -> set penalty_amount=150
+    -> where member_id=111;
+
+mysql> table member;
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| member_id | member_name | member_address | acc_open_date | membership_type | fees_paid | max_books_allowed | penalty_amount |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|       111 | Rahul Patil | Pune           | 2026-10-21    | Annual          |   1000.00 |                 3 |         150.00 |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+
+mysql> rollback to sp1;
+
+mysql> table member;
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| member_id | member_name | member_address | acc_open_date | membership_type | fees_paid | max_books_allowed | penalty_amount |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|       111 | Rahul Patil | Pune           | 2026-10-21    | Annual          |   1000.00 |                 3 |           0.00 |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+
+mysql> commit;
+
+
+Q4)
+mysql> start transaction;
+
+mysql> insert into issue
+    -> values (1001, 501, 101, CURDATE(), NULL);
+
+mysql> update member
+    -> set max_books_allowed=max_books_allowed-1
+    -> where member_id=1001;
+
+mysql> commit;
+
+
+Q5)
+mysql> start transaction;
+
+mysql> update books
+    -> set cost=300
+    -> where book_no=101;
+
+mysql> savepoint sp2;
+
+mysql> delete from issue where lib_issue_id=1001;
+
+mysql> table issue;
+Empty set (0.00 sec)
+
+mysql> rollback to sp2;
+
+mysql> table issue;
++--------------+---------+-----------+------------+-------------+
+| lib_issue_id | book_no | member_id | issue_date | return_date |
++--------------+---------+-----------+------------+-------------+
+|         1001 |     501 |       101 | 2026-10-21 | NULL        |
++--------------+---------+-----------+------------+-------------+
+
+
+Q6)
+mysql> start transaction;
+
+mysql> update member
+    -> set penalty_amount=200
+    -> where member_id=111;
+
+mysql> table member;
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| member_id | member_name | member_address | acc_open_date | membership_type | fees_paid | max_books_allowed | penalty_amount |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|       111 | Rahul Patil | Pune           | 2026-10-21    | Annual          |   1000.00 |                 3 |         200.00 |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+
+mysql> commit;
+
+mysql> rollback;
+
+mysql> table member;
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| member_id | member_name | member_address | acc_open_date | membership_type | fees_paid | max_books_allowed | penalty_amount |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|       111 | Rahul Patil | Pune           | 2026-10-21    | Annual          |   1000.00 |                 3 |         200.00 |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+
+
+Q7)
+mysql> start transaction;
+
+mysql> update books
+    -> set cost=700
+    -> where book_no=501;
+
+mysql> savepoint sp1;
+
+mysql> update member
+    -> set penalty_amount=250
+    -> where member_id=111;
+
+mysql> table member;
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| member_id | member_name | member_address | acc_open_date | membership_type | fees_paid | max_books_allowed | penalty_amount |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|       111 | Rahul Patil | Pune           | 2026-10-21    | Annual          |   1000.00 |                 3 |         250.00 |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+
+mysql> rollback to sp1;
+
+mysql> table member;
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+| member_id | member_name | member_address | acc_open_date | membership_type | fees_paid | max_books_allowed | penalty_amount |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
+|       111 | Rahul Patil | Pune           | 2026-10-21    | Annual          |   1000.00 |                 3 |         200.00 |
++-----------+-------------+----------------+---------------+-----------------+-----------+-------------------+----------------+
